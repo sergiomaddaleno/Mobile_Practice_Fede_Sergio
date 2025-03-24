@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Practice_Fede_Sergio</string>
+    <string name="Registro">Registro de usuario</string>
+    <string name="Nombre">Name</string>
+    <string name="Hola">Hello!</string>
+    <string name="Ajustes">Settings</string>
+
+</resources>

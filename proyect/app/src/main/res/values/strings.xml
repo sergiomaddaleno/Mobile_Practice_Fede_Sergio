@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Practica_Fede_Sergio</string>
+    <string name="Registro">Registro de usuario</string>
+    <string name="Nombre">Nombre</string>
+    <string name="Hola">Hola!</string>
+    <string name="Ajustes">Ajustes</string>
+
 </resources>
