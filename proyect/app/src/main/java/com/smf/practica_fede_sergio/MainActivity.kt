@@ -3,7 +3,6 @@ package com.smf.practica_fede_sergio
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,43 +13,44 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.smf.practica_fede_sergio.Screens.HomeScreen
 import com.smf.practica_fede_sergio.Screens.RegisterScreen
-import com.smf.practica_fede_sergio.ViewModel.UserViewModel
+
 import com.smf.practica_fede_sergio.ui.theme.Practica_Fede_SergioTheme
+import androidx.compose.ui.platform.LocalContext
+import com.smf.practica_fede_sergio.DataSource.MyTaskApplication
+import com.smf.practica_fede_sergio.ViewModel.UserViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             Practica_Fede_SergioTheme {
-                // Crear un NavController para gestionar la navegación
+
                 val navController = rememberNavController()
 
-                // Crear un UserViewModel que será usado en las pantallas
-                val userViewModel: UserViewModel = viewModel()
+                val loginViewModel: UserViewModel = viewModel(
+                    factory = UserViewModel.factory(
+                        (LocalContext.current.applicationContext as MyTaskApplication).dataSource
+                    )
+                )
 
-                // Configuramos el NavHost con las rutas
                 NavHost(navController = navController, startDestination = "register") {
-                    // Composable para la pantalla de registro
                     composable("register") {
                         RegisterScreen(
-                            userViewModel = userViewModel,  // Pasamos el ViewModel a RegisterScreen
+                            loginViewModel = loginViewModel,
                             onLogin = {
                                 navController.navigate("home")
                             }
                         )
                     }
 
-                    // Composable para la pantalla principal (Home)
                     composable("home") {
-                        HomeScreen(userViewModel = userViewModel, navController = navController)
+                        HomeScreen(loginViewModel = loginViewModel, navController = navController)
                     }
                 }
             }
         }
     }
 }
-
-
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {

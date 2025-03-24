@@ -6,9 +6,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -20,7 +18,7 @@ import com.smf.practica_fede_sergio.ViewModel.UserViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(userViewModel: UserViewModel, navController: NavController) {
+fun HomeScreen(loginViewModel: UserViewModel, navController: NavController) {
     val homeNavController = rememberNavController()
     val selectedItem = remember { mutableStateOf("home_main") }
 
@@ -67,10 +65,10 @@ fun HomeScreen(userViewModel: UserViewModel, navController: NavController) {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable("home_main") {
-                HomeMainScreen(userViewModel = userViewModel)
+                HomeMainScreen(loginViewModel = loginViewModel)
             }
             composable("profile") {
-                ProfileScreen(userViewModel = userViewModel)
+                ProfileScreen(loginViewModel = loginViewModel)
             }
             composable("settings") {
                 SettingsScreen()
@@ -80,15 +78,16 @@ fun HomeScreen(userViewModel: UserViewModel, navController: NavController) {
 }
 
 @Composable
-fun HomeMainScreen(userViewModel: UserViewModel) {
+fun HomeMainScreen(loginViewModel: UserViewModel) {
+    val uiState by loginViewModel.uiState.collectAsState()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        val currentName = userViewModel.name.value
         Text(
-            text = "Hola, $currentName!",
+            text = "Hola, ${uiState.email}!",
             style = MaterialTheme.typography.headlineLarge,
             modifier = Modifier.padding(bottom = 32.dp)
         )
@@ -96,7 +95,7 @@ fun HomeMainScreen(userViewModel: UserViewModel) {
 }
 
 @Composable
-fun ProfileScreen(userViewModel: UserViewModel) {
+fun ProfileScreen(loginViewModel: UserViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()

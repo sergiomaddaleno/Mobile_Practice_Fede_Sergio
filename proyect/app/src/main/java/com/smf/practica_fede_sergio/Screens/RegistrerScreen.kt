@@ -2,9 +2,7 @@ package com.smf.practica_fede_sergio.Screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
@@ -15,59 +13,74 @@ import com.smf.practica_fede_sergio.ViewModel.UserViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterScreen(userViewModel: UserViewModel = viewModel(), onLogin: () -> Unit) {
-    // Variable para capturar el texto ingresado
-    var nameInput = remember { mutableStateOf(TextFieldValue("")) }
+fun RegisterScreen(
+    loginViewModel: UserViewModel,
+    onLogin: () -> Unit
+) {
+    // Utilizamos remember para persistir el estado del TextField a través de las recomposiciones
+    val uiState by loginViewModel.uiState.collectAsState()
+    var emailInput by remember { mutableStateOf(TextFieldValue(uiState.email)) }
+    var isError by remember { mutableStateOf(false) }
 
-    // Recuperamos el nombre desde el ViewModel
-    val currentName = userViewModel.name.value
+    // Efecto secundario para actualizar el valor del TextField cuando el email en el estado cambia
+    LaunchedEffect(uiState.email) {
+        emailInput = TextFieldValue(uiState.email)
+    }
 
-    // Pantalla de registro
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        // Título de la pantalla
         Text(
             text = stringResource(R.string.Registro),
             style = MaterialTheme.typography.headlineLarge,
             modifier = Modifier.padding(bottom = 32.dp)
         )
 
-        // Subtítulo con nombre guardado
-        if (currentName.isNotEmpty()) {
+        if (uiState.email.isNotEmpty()) {
             Text(
-                text = "Nombre guardado: $currentName",
+                text = "Email guardado: ${uiState.email}",
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
         }
 
-        // Campo de texto para ingresar el nombre
         TextField(
-            value = nameInput.value,
-            onValueChange = { nameInput.value = it },
-            label = { Text("Nombre") },
+            value = emailInput,
+            onValueChange = {
+                emailInput = it
+                isError = it.text.isEmpty()
+            },
+            label = { Text("Email") },
+            isError = isError,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 24.dp)
         )
 
-        // Botón para guardar el nombre y navegar
+        if (isError) {
+            Text(
+                text = "El email no puede estar vacío",
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+        }
+
         Button(
             onClick = {
-                // Guardamos el nombre en el ViewModel
-                userViewModel.updateName(nameInput.value.text)
-
-                // Llamamos al callback para realizar la navegación
-                onLogin()
+                if (emailInput.text.isNotEmpty()) {
+                    loginViewModel.saveEmail(emailInput.text)
+                    onLogin()
+                } else {
+                    isError = true
+                }
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            enabled = emailInput.text.isNotEmpty()
         ) {
             Text(text = "Login")
         }
     }
 }
-
-
