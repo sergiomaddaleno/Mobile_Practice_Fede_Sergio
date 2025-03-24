@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.smf.practica_fede_sergio.Retrofit.MarsPhotosScreen
 import com.smf.practica_fede_sergio.ViewModel.UserViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
