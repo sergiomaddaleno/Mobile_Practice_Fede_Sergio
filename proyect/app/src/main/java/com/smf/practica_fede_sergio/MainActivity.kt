@@ -12,9 +12,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.smf.practica_fede_sergio.Screens.Home
 import com.smf.practica_fede_sergio.Screens.HomeScreen
-import com.smf.practica_fede_sergio.Screens.Register
 import com.smf.practica_fede_sergio.Screens.RegisterScreen
 import com.smf.practica_fede_sergio.ViewModel.UserViewModel
 import com.smf.practica_fede_sergio.ui.theme.Practica_Fede_SergioTheme
@@ -44,13 +42,14 @@ class MainActivity : ComponentActivity() {
 
                     // Composable para la pantalla principal (Home)
                     composable("home") {
-                        HomeScreen(userViewModel = userViewModel)
+                        HomeScreen(userViewModel = userViewModel, navController = navController)
                     }
                 }
             }
         }
     }
 }
+
 
 
 @Composable

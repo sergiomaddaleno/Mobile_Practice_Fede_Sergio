@@ -1,12 +1,8 @@
-
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     kotlin("plugin.serialization") version "1.8.10"
 }
-
-
 
 android {
     namespace = "com.smf.practica_fede_sergio"
@@ -34,19 +30,24 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         compose = true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -68,6 +69,13 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-kotlinx-serialization:2.10.0")
 
+    implementation ("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-kotlinx-serialization:0.8.0")
+    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+    implementation("io.coil-kt:coil-compose:2.2.2")
+    implementation("io.coil-kt:coil:2.2.2")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
@@ -83,7 +91,5 @@ dependencies {
 
     implementation("androidx.navigation:navigation-compose:2.8.7")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-
 }
-
 
