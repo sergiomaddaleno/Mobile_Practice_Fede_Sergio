@@ -1,5 +1,7 @@
 package com.smf.practica_fede_sergio.Retrofit
 
-data class MarsPhotosUiState(
-    val marsPhotos: List<MarsPhotos> = emptyList()
-)
+sealed class MarsPhotosUiState {
+    data class Success(val photos: List<MarsPhotos>) : MarsPhotosUiState()
+    data class Error(val message: String? = null) : MarsPhotosUiState()
+    object Loading : MarsPhotosUiState()
+}

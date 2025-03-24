@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 
 private const val MARS_API_URL =
-    "https://android-kotlin-fun-mars-server.appspot.com/realestate"
+    "https://android-kotlin-fun-mars-server.appspot.com"
 
 val retrofitApi = Retrofit.Builder()
     .baseUrl(MARS_API_URL)
