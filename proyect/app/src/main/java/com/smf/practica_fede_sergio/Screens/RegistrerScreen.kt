@@ -1,13 +1,19 @@
 package com.smf.practica_fede_sergio.Screens
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.ui.unit.sp
 import com.smf.practica_fede_sergio.R
 import com.smf.practica_fede_sergio.ViewModel.UserViewModel
 
@@ -17,70 +23,130 @@ fun RegisterScreen(
     loginViewModel: UserViewModel,
     onLogin: () -> Unit
 ) {
-    // Utilizamos remember para persistir el estado del TextField a través de las recomposiciones
     val uiState by loginViewModel.uiState.collectAsState()
     var emailInput by remember { mutableStateOf(TextFieldValue(uiState.email)) }
+    var passwordInput by remember { mutableStateOf(TextFieldValue("")) }  // Nuevo estado para la contraseña
     var isError by remember { mutableStateOf(false) }
+    var emailErrorMessage by remember { mutableStateOf("") }
+    var passwordErrorMessage by remember { mutableStateOf("") }  // Mensaje de error para la contraseña
 
-    // Efecto secundario para actualizar el valor del TextField cuando el email en el estado cambia
     LaunchedEffect(uiState.email) {
         emailInput = TextFieldValue(uiState.email)
     }
 
-    Column(
+    fun isValidEmail(email: String): Boolean {
+        return email.endsWith("@gmail.com")
+    }
+
+    fun isValidPassword(password: String): Boolean {
+        return password.isNotEmpty()  // Validar que la contraseña no esté vacía
+    }
+
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .background(Color.Black)
+            .padding(16.dp),
+        contentAlignment = Alignment.Center  // Centra todo el contenido
     ) {
-        Text(
-            text = stringResource(R.string.Registro),
-            style = MaterialTheme.typography.headlineLarge,
-            modifier = Modifier.padding(bottom = 32.dp)
-        )
-
-        if (uiState.email.isNotEmpty()) {
-            Text(
-                text = "Email guardado: ${uiState.email}",
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-        }
-
-        TextField(
-            value = emailInput,
-            onValueChange = {
-                emailInput = it
-                isError = it.text.isEmpty()
-            },
-            label = { Text("Email") },
-            isError = isError,
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 24.dp)
-        )
+                .wrapContentHeight()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,  // Centra horizontalmente
+            verticalArrangement = Arrangement.Center  // Centra verticalmente
+        ) {
+            // Imagen de Call of Duty
+            Image(
+                painter = painterResource(id = R.drawable.cod_logo),
+                contentDescription = "Call of Duty Logo",
+                modifier = Modifier.size(330.dp)
+            )
 
-        if (isError) {
             Text(
-                text = "El email no puede estar vacío",
-                color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.bodySmall,
+                text = "INICIAR SESION",
+                color = Color.Yellow,
+                fontSize = 28.sp,
+                style = MaterialTheme.typography.headlineLarge,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
-        }
 
-        Button(
-            onClick = {
-                if (emailInput.text.isNotEmpty()) {
-                    loginViewModel.saveEmail(emailInput.text)
-                    onLogin()
-                } else {
-                    isError = true
-                }
-            },
-            modifier = Modifier.fillMaxWidth(),
-            enabled = emailInput.text.isNotEmpty()
-        ) {
-            Text(text = "Login")
+            // Campo de email
+            TextField(
+                value = emailInput,
+                onValueChange = {
+                    emailInput = it
+                    isError = it.text.isEmpty() || !isValidEmail(it.text)
+                    emailErrorMessage = when {
+                        it.text.isEmpty() -> "El email no puede estar vacío"
+                        !isValidEmail(it.text) -> "El email debe terminar en @gmail.com"
+                        else -> ""
+                    }
+                },
+                label = { Text("Email", color = Color.White) },
+                isError = isError,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.DarkGray, RoundedCornerShape(8.dp))
+                    .padding(8.dp)
+            )
+
+            if (isError) {
+                Text(
+                    text = emailErrorMessage,
+                    color = Color.Red,
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+            }
+
+            // Campo de contraseña
+            TextField(
+                value = passwordInput,
+                onValueChange = {
+                    passwordInput = it
+                    isError = it.text.isEmpty() || !isValidPassword(it.text)
+                    passwordErrorMessage = if (it.text.isEmpty()) "La contraseña no puede estar vacía" else ""
+                },
+                label = { Text("Contraseña", color = Color.White) },
+                isError = passwordInput.text.isEmpty(),
+                visualTransformation = PasswordVisualTransformation(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.DarkGray, RoundedCornerShape(8.dp))
+                    .padding(8.dp)
+            )
+
+            if (passwordInput.text.isEmpty()) {
+                Text(
+                    text = passwordErrorMessage,
+                    color = Color.Red,
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+            }
+
+            // Botón para login
+            Button(
+                onClick = {
+                    if (isValidEmail(emailInput.text) && isValidPassword(passwordInput.text)) {
+                        loginViewModel.saveEmail(emailInput.text)
+                        onLogin()
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                enabled = isValidEmail(emailInput.text) && isValidPassword(passwordInput.text),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Yellow,
+                    contentColor = if (isValidEmail(emailInput.text) && isValidPassword(passwordInput.text)) Color.Black else Color.White
+                )
+            ) {
+                Text(text = "Entrar al campo de batalla")
+            }
         }
     }
 }
+

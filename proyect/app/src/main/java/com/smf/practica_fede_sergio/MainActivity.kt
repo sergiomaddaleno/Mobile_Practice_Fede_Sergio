@@ -1,5 +1,6 @@
 package com.smf.practica_fede_sergio
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,12 +17,14 @@ import com.smf.practica_fede_sergio.Screens.RegisterScreen
 
 import com.smf.practica_fede_sergio.ui.theme.Practica_Fede_SergioTheme
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.view.WindowCompat
 import com.smf.practica_fede_sergio.DataSource.MyTaskApplication
 import com.smf.practica_fede_sergio.ViewModel.UserViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             Practica_Fede_SergioTheme {
 
