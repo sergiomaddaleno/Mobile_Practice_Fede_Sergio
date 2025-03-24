@@ -4,6 +4,8 @@ plugins {
     kotlin("plugin.serialization") version "1.8.10"
 }
 
+
+
 android {
     namespace = "com.smf.practica_fede_sergio"
     compileSdk = 35
@@ -92,4 +94,3 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.8.7")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 }
-
