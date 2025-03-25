@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.smf.practica_fede_sergio.DataSource.DataSource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 data class UserUiState(
@@ -52,6 +53,15 @@ class UserViewModel(private val dataSource: DataSource) : ViewModel() {
         viewModelScope.launch {
             dataSource.saveDarkModePreference(isDarkMode) // Guardamos el estado en DataStore
             _uiState.value = _uiState.value.copy(isDarkMode = isDarkMode) // Actualizamos el estado
+        }
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            dataSource.clearEmailPreference()
+            _uiState.update { currentState ->
+                currentState.copy(email = "")
+            }
         }
     }
 

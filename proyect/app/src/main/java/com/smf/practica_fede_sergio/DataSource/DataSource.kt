@@ -61,4 +61,10 @@ class DataSource(
             preferences[DARK_MODE] = isDarkMode
         }
     }
+
+    suspend fun clearEmailPreference() {
+        dataStore.edit { preferences ->
+            preferences.remove(USER_MAIL)
+        }
+    }
 }

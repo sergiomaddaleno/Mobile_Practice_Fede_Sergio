@@ -13,6 +13,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
@@ -25,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -78,10 +80,37 @@ fun HomeScreen(loginViewModel: UserViewModel, navController: NavController) {
     val homeNavController = rememberNavController()
     val selectedItem = remember { mutableStateOf("home_main") }
     val uiState by loginViewModel.uiState.collectAsState()
-
+    val emailPrefix = uiState.email.substringBefore("@")
     AppTheme(isDarkMode = uiState.isDarkMode) {
         Box(modifier = Modifier.fillMaxSize()) {
             Scaffold(
+                topBar = {
+                    TopAppBar(
+                        title = {
+                            Text(
+                                text = "Bienvenido de nuevo, $emailPrefix!",
+                                fontSize = 20.sp,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        },
+                        actions = {
+                            IconButton(onClick = {
+                                loginViewModel.logout() // Llama a la función para eliminar los datos del DataStore
+                                navController.navigate("register") {
+                                    popUpTo(navController.graph.startDestinationId) { inclusive = true }
+                                }
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Filled.ExitToApp,
+                                    contentDescription = "Logout",
+                                    tint = Color.Red
+
+                                )
+                            }
+                        }
+                    )
+                },
                 bottomBar = {
                     BottomAppBar(
                         modifier = Modifier
@@ -147,6 +176,7 @@ fun HomeScreen(loginViewModel: UserViewModel, navController: NavController) {
     }
 }
 
+
 @Composable
 fun BottomAppBarButton(
     icon: ImageVector,
@@ -196,12 +226,6 @@ fun HomeMainScreen(loginViewModel: UserViewModel) {
                 modifier = Modifier.size(200.dp)
             )
 
-            Text(
-                text = "Bienvenido de nuevo, $emailPrefix!",
-
-                fontSize = 28.sp,
-                modifier = Modifier.padding(top = 16.dp)
-            )
 
             Spacer(modifier = Modifier.height(15.dp))
 
