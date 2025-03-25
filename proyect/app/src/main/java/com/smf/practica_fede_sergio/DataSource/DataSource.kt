@@ -1,13 +1,11 @@
 package com.smf.practica_fede_sergio.DataSource
 
-import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -19,6 +17,7 @@ class DataSource(
     private companion object {
         val USER_MAIL = stringPreferencesKey("user_mail")
         val DARK_MODE = booleanPreferencesKey("dark_mode") // Clave para el modo oscuro
+        val IS_ENGLISH = booleanPreferencesKey("is_english") // Clave para el modo oscuro
         const val LOGIN_PREFERENCES = "LoginPreferences"
     }
 
@@ -48,6 +47,11 @@ class DataSource(
             preferences[DARK_MODE] ?: true
         }
 
+    val getLanguageStatus: Flow<Boolean> = dataStore.data
+        .map { preferences ->
+            preferences[IS_ENGLISH] ?: false
+        }
+
     // Función para guardar el correo del usuario
     suspend fun saveEmailPreference(userEmail: String) {
         dataStore.edit { preferences ->
@@ -65,6 +69,12 @@ class DataSource(
     suspend fun clearEmailPreference() {
         dataStore.edit { preferences ->
             preferences.remove(USER_MAIL)
+        }
+    }
+
+    suspend fun saveLanguagePreference(isEnglish: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[IS_ENGLISH] = isEnglish
         }
     }
 }

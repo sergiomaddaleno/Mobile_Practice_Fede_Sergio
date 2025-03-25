@@ -12,7 +12,8 @@ import kotlinx.coroutines.launch
 data class UserUiState(
     val name: String = "",
     val email: String = "",
-    val isDarkMode: Boolean = true // Agregamos el estado del modo oscuro
+    val isDarkMode: Boolean = true,
+    val isEnglish: Boolean = false
 )
 
 class UserViewModel(private val dataSource: DataSource) : ViewModel() {
@@ -21,16 +22,21 @@ class UserViewModel(private val dataSource: DataSource) : ViewModel() {
     val uiState: StateFlow<UserUiState> = _uiState
 
     init {
-        // Cargar el correo electrónico y el estado de modo oscuro desde DataStore
         viewModelScope.launch {
-            dataSource.getUserEmail.collect { email ->
-                // Si el correo cambia, actualizamos el estado del ViewModel
-                _uiState.value = _uiState.value.copy(email = email)
+            launch {
+                dataSource.getUserEmail.collect { email ->
+                    _uiState.value = _uiState.value.copy(email = email)
+                }
             }
-
-            dataSource.getDarkModeStatus.collect { isDarkMode ->
-                // Si el estado de modo oscuro cambia, actualizamos el estado del ViewModel
-                _uiState.value = _uiState.value.copy(isDarkMode = isDarkMode)
+            launch {
+                dataSource.getDarkModeStatus.collect { isDarkMode ->
+                    _uiState.value = _uiState.value.copy(isDarkMode = isDarkMode)
+                }
+            }
+            launch {
+                dataSource.getLanguageStatus.collect { isEnglish ->
+                    _uiState.value = _uiState.value.copy(isEnglish = isEnglish)
+                }
             }
         }
     }
@@ -51,8 +57,16 @@ class UserViewModel(private val dataSource: DataSource) : ViewModel() {
     // Método para guardar el estado del modo oscuro
     fun saveDarkMode(isDarkMode: Boolean) {
         viewModelScope.launch {
-            dataSource.saveDarkModePreference(isDarkMode) // Guardamos el estado en DataStore
-            _uiState.value = _uiState.value.copy(isDarkMode = isDarkMode) // Actualizamos el estado
+            dataSource.saveDarkModePreference(isDarkMode)
+            _uiState.value = _uiState.value.copy(isDarkMode = isDarkMode)
+        }
+    }
+
+    // Método para guardar el estado del idioma
+    fun saveLanguage(isEnglish: Boolean) {
+        viewModelScope.launch {
+            dataSource.saveLanguagePreference(isEnglish)
+            _uiState.value = _uiState.value.copy(isEnglish = isEnglish)
         }
     }
 

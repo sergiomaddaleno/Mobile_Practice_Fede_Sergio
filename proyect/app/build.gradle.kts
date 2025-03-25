@@ -80,6 +80,7 @@ dependencies {
     implementation("org.jetbrains:annotations:15.0")
     implementation("org.jetbrains:annotations:15.0")
     implementation("org.jetbrains:annotations:15.0")
+    implementation("androidx.datastore:datastore-core-android:1.1.3")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
