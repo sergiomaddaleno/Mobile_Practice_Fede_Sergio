@@ -13,9 +13,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -402,11 +405,13 @@ fun ProfileScreen(loginViewModel: UserViewModel) {
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(loginViewModel: UserViewModel) {
     val uiState by loginViewModel.uiState.collectAsState()
     var isDarkMode by remember { mutableStateOf(uiState.isDarkMode) }
+    val context = LocalContext.current
 
     fun toggleDarkMode(isDark: Boolean) {
         loginViewModel.saveDarkMode(isDark)
@@ -416,6 +421,7 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
+            .verticalScroll(rememberScrollState())
     ) {
         Text(
             text = "Ajustes del Juego",
@@ -426,7 +432,9 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
         )
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 24.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -443,11 +451,61 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
                 }
             )
         }
+
+        Text(
+            text = "Contacto",
+            style = MaterialTheme.typography.headlineMedium,
+            color = if (isDarkMode) Color.Yellow else Color.Black,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+
+        ContactButton(
+            icon = Icons.Default.Email,
+            text = "Enviar correo",
+            onClick = {
+                val intent = Intent(Intent.ACTION_SENDTO).apply {
+                    data = Uri.parse("mailto:support@callofduty.com")
+                    putExtra(Intent.EXTRA_SUBJECT, "Consulta sobre Call of Duty")
+                }
+                context.startActivity(intent)
+            }
+        )
+
+        ContactButton(
+            icon = Icons.Default.Phone,
+            text = "Llamar al soporte",
+            onClick = {
+                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:+18005915240"))
+                context.startActivity(intent)
+            }
+        )
+
+        ContactButton(
+            icon = Icons.Default.LocationOn,
+            text = "Visitar sitio web oficial",
+            onClick = {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.callofduty.com"))
+                context.startActivity(intent)
+            }
+        )
     }
 }
 
-fun openCallOfDutyPage(context: Context) {
-    val url = "https://www.callofduty.com"
-    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-    context.startActivity(intent)
+@Composable
+fun ContactButton(icon: ImageVector, text: String, onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            modifier = Modifier.padding(end = 8.dp)
+        )
+        Text(text = text)
+    }
 }
+
+
