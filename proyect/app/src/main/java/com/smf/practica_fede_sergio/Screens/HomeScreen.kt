@@ -44,18 +44,21 @@ private val LightThemeColors = lightColorScheme(
     onSecondary = Color.Black,
     onBackground = Color.Black,
     onSurface = Color.Black,
+    surfaceVariant = Color(0xFFFFA500), // Gris claro (ejemplo para las tarjetas)
+    onSurfaceVariant = Color.Black
 )
 
-// Tema oscuro
 private val DarkThemeColors = darkColorScheme(
-    primary = Color.Black,
-    secondary = Color.Yellow,
+    primary =  Color.Yellow,
+    secondary = Color(0xFFA9A9A9),
     background = Color.Black,
     surface = Color.Black,
-    onPrimary = Color.Yellow,
+    onPrimary = Color.Black,
     onSecondary = Color.Black,
     onBackground = Color.Yellow,
-    onSurface = Color.Yellow,
+    onSurface = Color(0xFFE0E0E0),
+    surfaceVariant = Color(0xFF424242),
+    onSurfaceVariant = Color(0xFFE0E0E0)
 )
 
 @Composable
@@ -69,16 +72,14 @@ fun AppTheme(
     )
 }
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(loginViewModel: UserViewModel, navController: NavController) {
     val homeNavController = rememberNavController()
     val selectedItem = remember { mutableStateOf("home_main") }
-    val uiState by loginViewModel.uiState.collectAsState() // Observamos el estado de UI, que incluye isDarkMode
+    val uiState by loginViewModel.uiState.collectAsState()
 
-    // Usamos el tema según el estado del modo oscuro
-    AppTheme(isDarkMode = uiState.isDarkMode) { // Cambiar el tema según el estado global
+    AppTheme(isDarkMode = uiState.isDarkMode) {
         Box(modifier = Modifier.fillMaxSize()) {
             Scaffold(
                 bottomBar = {
@@ -86,7 +87,6 @@ fun HomeScreen(loginViewModel: UserViewModel, navController: NavController) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = 4.dp),
-                        containerColor = Color.Black
                     ) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -125,7 +125,6 @@ fun HomeScreen(loginViewModel: UserViewModel, navController: NavController) {
                     }
                 }
             ) { innerPadding ->
-
                 NavHost(
                     navController = homeNavController,
                     startDestination = "home_main",
@@ -148,9 +147,6 @@ fun HomeScreen(loginViewModel: UserViewModel, navController: NavController) {
     }
 }
 
-
-
-
 @Composable
 fun BottomAppBarButton(
     icon: ImageVector,
@@ -158,8 +154,8 @@ fun BottomAppBarButton(
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
-    val backgroundColor = if (isSelected) Color.Yellow else Color.DarkGray
-    val iconTint = if (isSelected) Color.Black else Color.White
+    val backgroundColor = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant
+    val iconTint = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
 
     IconButton(
         onClick = onClick,
@@ -167,7 +163,7 @@ fun BottomAppBarButton(
             .clip(RoundedCornerShape(16.dp))
             .background(backgroundColor)
             .padding(12.dp)
-            .indication(interactionSource = remember { MutableInteractionSource() }, indication = LocalIndication.current) // Ripple effect
+            .indication(interactionSource = remember { MutableInteractionSource() }, indication = LocalIndication.current)
     ) {
         Icon(
             imageVector = icon,
@@ -177,22 +173,15 @@ fun BottomAppBarButton(
     }
 }
 
-
-
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeMainScreen(
-    loginViewModel: UserViewModel
-) {
+fun HomeMainScreen(loginViewModel: UserViewModel) {
     val uiState by loginViewModel.uiState.collectAsState()
-
     val emailPrefix = uiState.email.substringBefore("@")
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-
             .padding(16.dp),
         contentAlignment = Alignment.TopCenter
     ) {
@@ -201,7 +190,6 @@ fun HomeMainScreen(
             verticalArrangement = Arrangement.Top,
             modifier = Modifier.verticalScroll(rememberScrollState())
         ) {
-
             Image(
                 painter = painterResource(id = R.drawable.bo3),
                 contentDescription = "Logo de la app",
@@ -210,13 +198,12 @@ fun HomeMainScreen(
 
             Text(
                 text = "Bienvenido de nuevo, $emailPrefix!",
-                style = MaterialTheme.typography.headlineLarge.copy(color = Color.Yellow),
+
                 fontSize = 28.sp,
                 modifier = Modifier.padding(top = 16.dp)
             )
 
             Spacer(modifier = Modifier.height(15.dp))
-
 
             StatsCard(title = "Partidas Jugadas", value = "150")
             StatsCard(title = "Nivel de Jugador", value = "45")
@@ -224,15 +211,13 @@ fun HomeMainScreen(
 
             Spacer(modifier = Modifier.height(32.dp))
 
-
             LevelProgressBar(currentLevel = 45, maxLevel = 100)
 
             Spacer(modifier = Modifier.height(32.dp))
 
-
             Text(
                 text = "Tus Logros",
-                style = MaterialTheme.typography.titleMedium.copy(color = Color.Yellow),
+
                 fontSize = 22.sp
             )
             LogroCard(title = "Completaste 100 partidas", icon = R.drawable.ic_check_circle)
@@ -241,10 +226,9 @@ fun HomeMainScreen(
 
             Spacer(modifier = Modifier.height(32.dp))
 
-
             Text(
                 text = "Consejos para mejorar",
-                style = MaterialTheme.typography.titleMedium.copy(color = Color.Yellow),
+
                 fontSize = 22.sp
             )
             TipsCard(text = "Haz misiones diarias para mejorar tu nivel rápidamente.")
@@ -252,10 +236,9 @@ fun HomeMainScreen(
 
             Spacer(modifier = Modifier.height(32.dp))
 
-
             Text(
                 text = "¡Sigue jugando y mejora cada día!",
-                style = MaterialTheme.typography.bodyLarge.copy(color = Color.Gray),
+
                 fontSize = 18.sp
             )
         }
@@ -269,7 +252,7 @@ fun StatsCard(title: String, value: String) {
             .fillMaxWidth()
             .padding(vertical = 8.dp),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.DarkGray),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant), // Usar color del tema
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Row(
@@ -281,17 +264,20 @@ fun StatsCard(title: String, value: String) {
         ) {
             Text(
                 text = title,
-                style = MaterialTheme.typography.bodyMedium.copy(color = Color.White),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant, // Usar color del tema
                 fontSize = 16.sp
             )
             Text(
                 text = value,
-                style = MaterialTheme.typography.bodyMedium.copy(color = Color.Yellow),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.primary, // Usar color del tema
                 fontSize = 16.sp
             )
         }
     }
 }
+
 
 @Composable
 fun LevelProgressBar(currentLevel: Int, maxLevel: Int) {
@@ -302,7 +288,8 @@ fun LevelProgressBar(currentLevel: Int, maxLevel: Int) {
     ) {
         Text(
             text = "Nivel: $currentLevel / $maxLevel",
-            style = MaterialTheme.typography.bodyMedium.copy(color = Color.White),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onBackground,
             fontSize = 16.sp
         )
         LinearProgressIndicator(
@@ -310,11 +297,12 @@ fun LevelProgressBar(currentLevel: Int, maxLevel: Int) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 8.dp),
-            color = Color.Yellow,
-            trackColor = Color.Gray
+            color = MaterialTheme.colorScheme.primary,
+            trackColor = MaterialTheme.colorScheme.surfaceVariant
         )
     }
 }
+
 
 @Composable
 fun LogroCard(title: String, icon: Int) {
@@ -323,7 +311,7 @@ fun LogroCard(title: String, icon: Int) {
             .fillMaxWidth()
             .padding(vertical = 8.dp),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.DarkGray),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Row(
@@ -336,18 +324,20 @@ fun LogroCard(title: String, icon: Int) {
             Icon(
                 painter = painterResource(id = icon),
                 contentDescription = null,
-                tint = Color.Yellow,
+                tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(24.dp)
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = title,
-                style = MaterialTheme.typography.bodyMedium.copy(color = Color.White),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 16.sp
             )
         }
     }
 }
+
 
 @Composable
 fun TipsCard(text: String) {
@@ -356,7 +346,7 @@ fun TipsCard(text: String) {
             .fillMaxWidth()
             .padding(vertical = 8.dp),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.DarkGray),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Row(
@@ -368,7 +358,8 @@ fun TipsCard(text: String) {
         ) {
             Text(
                 text = text,
-                style = MaterialTheme.typography.bodyMedium.copy(color = Color.White),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 14.sp
             )
         }
@@ -389,16 +380,12 @@ fun ProfileScreen(loginViewModel: UserViewModel) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(
-    loginViewModel: UserViewModel
-) {
+fun SettingsScreen(loginViewModel: UserViewModel) {
     val uiState by loginViewModel.uiState.collectAsState()
-
     var isDarkMode by remember { mutableStateOf(uiState.isDarkMode) }
 
-    // Función para guardar el estado del modo oscuro
     fun toggleDarkMode(isDark: Boolean) {
-        loginViewModel.saveDarkMode(isDark) // Guardamos el estado en el ViewModel
+        loginViewModel.saveDarkMode(isDark)
     }
 
     Column(
@@ -428,18 +415,15 @@ fun SettingsScreen(
                 checked = isDarkMode,
                 onCheckedChange = { checked ->
                     isDarkMode = checked
-                    toggleDarkMode(checked) // Actualizamos el estado en el ViewModel
+                    toggleDarkMode(checked)
                 }
             )
         }
     }
 }
 
-
-
 fun openCallOfDutyPage(context: Context) {
     val url = "https://www.callofduty.com"
     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
     context.startActivity(intent)
 }
-
