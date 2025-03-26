@@ -16,12 +16,12 @@ class DataSource(
 
     private companion object {
         val USER_MAIL = stringPreferencesKey("user_mail")
-        val DARK_MODE = booleanPreferencesKey("dark_mode") // Clave para el modo oscuro
-        val IS_ENGLISH = booleanPreferencesKey("is_english") // Clave para el modo oscuro
+        val DARK_MODE = booleanPreferencesKey("dark_mode")
+        val IS_ENGLISH = booleanPreferencesKey("is_english")
         const val LOGIN_PREFERENCES = "LoginPreferences"
     }
 
-    // Función para obtener el correo del usuario desde DataStore
+
     val getUserEmail: Flow<String> = dataStore.data
         .catch { exception ->
             if (exception is java.io.IOException) {
@@ -34,7 +34,6 @@ class DataSource(
             preferences[USER_MAIL] ?: ""
         }
 
-    // Función para obtener el estado del modo oscuro desde DataStore
     val getDarkModeStatus: Flow<Boolean> = dataStore.data
         .catch { exception ->
             if (exception is java.io.IOException) {
@@ -44,22 +43,23 @@ class DataSource(
             }
         }
         .map { preferences ->
-            preferences[DARK_MODE] ?: true
+            preferences[DARK_MODE] ?: false // Default value to false
         }
+
 
     val getLanguageStatus: Flow<Boolean> = dataStore.data
         .map { preferences ->
             preferences[IS_ENGLISH] ?: false
         }
 
-    // Función para guardar el correo del usuario
+
     suspend fun saveEmailPreference(userEmail: String) {
         dataStore.edit { preferences ->
             preferences[USER_MAIL] = userEmail
         }
     }
 
-    // Función para guardar el estado del modo oscuro
+
     suspend fun saveDarkModePreference(isDarkMode: Boolean) {
         dataStore.edit { preferences ->
             preferences[DARK_MODE] = isDarkMode

@@ -10,20 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb922022-b655-4197-b52d-663dc689b815" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/proyect/app/src/main/res/drawable/bo3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proyect/app/src/main/res/drawable/cod_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proyect/app/src/main/res/drawable/ic_check_circle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proyect/app/src/main/res/drawable/alex.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proyect/app/src/main/res/drawable/ghost.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proyect/app/src/main/res/drawable/price.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proyect/app/src/main/res/drawable/soap.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proyect/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/proyect/app/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proyect/app/src/main/java/com/smf/practica_fede_sergio/DataSource/DataSource.kt" beforeDir="false" afterPath="$PROJECT_DIR$/proyect/app/src/main/java/com/smf/practica_fede_sergio/DataSource/DataSource.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyect/app/src/main/java/com/smf/practica_fede_sergio/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/proyect/app/src/main/java/com/smf/practica_fede_sergio/MainActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proyect/app/src/main/java/com/smf/practica_fede_sergio/Screens/HomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/proyect/app/src/main/java/com/smf/practica_fede_sergio/Screens/HomeScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyect/app/src/main/java/com/smf/practica_fede_sergio/Screens/RegistrerScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/proyect/app/src/main/java/com/smf/practica_fede_sergio/Screens/RegistrerScreen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proyect/app/src/main/java/com/smf/practica_fede_sergio/ViewModel/UserViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/proyect/app/src/main/java/com/smf/practica_fede_sergio/ViewModel/UserViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyect/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/proyect/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyect/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/proyect/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyect/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/proyect/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyect/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/proyect/gradlew.bat" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,28 +99,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Android App.Practica_Fede_Sergio.app.executor": "Run",
-    "Gradle.Upgrade Gradle wrapper.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/pc000/Documents/GitHub/Mobile_Practice_Fede_Sergio/proyect/app/src/main/res/drawable",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Android App.Practica_Fede_Sergio.app.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Upgrade Gradle wrapper.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/pc000/Documents/GitHub/Mobile_Practice_Fede_Sergio/proyect/app/src/main/res/drawable&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\pc000\Documents\GitHub\Mobile_Practice_Fede_Sergio\proyect\app\src\main\res\drawable" />

@@ -12,11 +12,11 @@ import kotlinx.coroutines.launch
 data class UserUiState(
     val name: String = "",
     val email: String = "",
-    val isDarkMode: Boolean = true,
+    val isDarkMode: Boolean = false,
     val isEnglish: Boolean = false
 )
 
-class UserViewModel(private val dataSource: DataSource) : ViewModel() {
+open class UserViewModel(private val dataSource: DataSource) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UserUiState())
     val uiState: StateFlow<UserUiState> = _uiState
@@ -40,6 +40,7 @@ class UserViewModel(private val dataSource: DataSource) : ViewModel() {
             }
         }
     }
+
 
     // Método para actualizar el nombre
     fun updateName(newName: String) {
