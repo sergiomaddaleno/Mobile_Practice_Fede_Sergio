@@ -10,17 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb922022-b655-4197-b52d-663dc689b815" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proyect/app/src/main/res/drawable/alex.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proyect/app/src/main/res/drawable/ghost.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proyect/app/src/main/res/drawable/price.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proyect/app/src/main/res/drawable/soap.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proyect/app/src/main/res/values-es-rES/values_esp.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyect/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/proyect/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyect/app/src/main/java/com/smf/practica_fede_sergio/DataSource/DataSource.kt" beforeDir="false" afterPath="$PROJECT_DIR$/proyect/app/src/main/java/com/smf/practica_fede_sergio/DataSource/DataSource.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proyect/app/src/main/java/com/smf/practica_fede_sergio/Screens/HomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/proyect/app/src/main/java/com/smf/practica_fede_sergio/Screens/HomeScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyect/app/src/main/java/com/smf/practica_fede_sergio/ViewModel/UserViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/proyect/app/src/main/java/com/smf/practica_fede_sergio/ViewModel/UserViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proyect/app/src/main/res/values-en-rUS/values_eng.xml" beforeDir="false" afterPath="$PROJECT_DIR$/proyect/app/src/main/res/values-en-rUS/values_eng.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proyect/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/proyect/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +25,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\pc000\.android\avd\Medium_Phone.avd)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\Sergio\.android\avd\Medium_Phone.avd)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -293,13 +288,13 @@
       <map>
         <entry key="com.smf.practica_fede_sergio.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1742814485261" />
+            <CheckInfo lastCheckTimestamp="1742990345241" />
           </value>
         </entry>
         <entry />
         <entry key="com.smf.practica_fede_sergio">
           <value>
-            <CheckInfo lastCheckTimestamp="1742856802973" />
+            <CheckInfo lastCheckTimestamp="1742990345241" />
           </value>
         </entry>
       </map>

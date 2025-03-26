@@ -1,5 +1,6 @@
 package com.smf.practica_fede_sergio.Screens
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -57,6 +58,9 @@ import com.smf.practica_fede_sergio.R
 import com.smf.practica_fede_sergio.Retrofit.MarsPhotosScreen
 import com.smf.practica_fede_sergio.ViewModel.UserViewModel
 import java.time.format.TextStyle
+import androidx.compose.ui.res.stringResource
+import android.content.res.Configuration
+import java.util.Locale
 
 private val LightThemeColors = lightColorScheme(
     primary = Color.Black,
@@ -696,18 +700,41 @@ fun ProfileScreen(loginViewModel: UserViewModel) {
 
 
 
+object LocaleHelper {
+    fun setLocale(context: Context, languageCode: String): Context {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+
+        val config = Configuration()
+        config.setLocale(locale)
+
+        return context.createConfigurationContext(config)
+    }
+}
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(loginViewModel: UserViewModel) {
     val uiState by loginViewModel.uiState.collectAsState()
     var isDarkMode by remember { mutableStateOf(uiState.isDarkMode) }
+    var isEnglish by remember { mutableStateOf(uiState.isEnglish) }
     val context = LocalContext.current
     val email = uiState.email
-    var linkedAccountsExpanded by remember { mutableStateOf(false) } // State for expansion
+    var linkedAccountsExpanded by remember { mutableStateOf(false) }
     var advancedSettingsExpanded by remember { mutableStateOf(false) }
 
     fun toggleDarkMode(isDark: Boolean) {
         loginViewModel.saveDarkMode(isDark)
+    }
+
+    fun toggleLanguage(isEnglish: Boolean) {
+        val newLanguageCode = if (isEnglish) "en" else "es"
+        val updatedContext = LocaleHelper.setLocale(context, newLanguageCode)
+        loginViewModel.saveLanguage(isEnglish)
+
+        // Restart the activity to apply changes
+        (context as? Activity)?.recreate()
     }
 
     Column(
@@ -718,7 +745,7 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
     ) {
         // Header: App Title
         Text(
-            text = "Ajustes del Juego",
+            text = stringResource(id = R.string.settings_title),
             style = MaterialTheme.typography.headlineLarge,
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
@@ -728,7 +755,7 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
 
         // 1. Dark Mode Setting
         SettingRow(
-            title = "Modo Oscuro",
+            title = stringResource(id = R.string.dark_mode),
             icon = Icons.Default.Build,
             content = {
                 Switch(
@@ -741,9 +768,24 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             }
         )
 
+        // 2. Language Setting
+        SettingRow(
+            title = stringResource(id = R.string.language),
+            icon = Icons.Default.Build,
+            content = {
+                Switch(
+                    checked = isEnglish,
+                    onCheckedChange = { checked ->
+                        isEnglish = checked
+                        toggleLanguage(checked)
+                    }
+                )
+            }
+        )
+
         // Header: Account
         Text(
-            text = "Cuenta",
+            text = stringResource(id = R.string.contact),
             style = MaterialTheme.typography.headlineMedium,
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
@@ -756,11 +798,10 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             title = "Cuentas Enlazadas",
             icon = Icons.Default.Person,
             onClick = {
-                linkedAccountsExpanded = !linkedAccountsExpanded // Toggle expansion
+                linkedAccountsExpanded = !linkedAccountsExpanded
             }
         )
 
-        // Animated Visibility for Linked Accounts
         AnimatedVisibility(
             visible = linkedAccountsExpanded,
             enter = expandVertically(expandFrom = Alignment.Top),
@@ -769,23 +810,22 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 40.dp, top = 8.dp, bottom = 16.dp),  // Indent and add spacing
+                    .padding(start = 40.dp, top = 8.dp, bottom = 16.dp),
                 horizontalAlignment = Alignment.Start
             ) {
-                if(email.isNotEmpty()){
+                if (email.isNotEmpty()) {
                     Text(
-                        text = "Correo: $email", // Display email prefix
+                        text = "Correo: $email",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurface
                     )
-                }else{
+                } else {
                     Text(
                         text = "Correo: No Correo",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                 }
-
             }
         }
 
@@ -810,7 +850,7 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
                 horizontalAlignment = Alignment.Start
             ) {
                 // Slider Example
-                var sliderValue by remember { mutableStateOf(50f) } // Example value
+                var sliderValue by remember { mutableStateOf(50f) }
 
                 Text(
                     text = "Volumen del juego: ${sliderValue.toInt()}",
@@ -844,8 +884,7 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
                 }
 
                 // Dropdown Example
-                var selectedQuality by remember { mutableStateOf("Alta") } // initial value
-
+                var selectedQuality by remember { mutableStateOf("Alta") }
                 val options = listOf("Baja", "Media", "Alta")
                 var expanded by remember { mutableStateOf(false) }
 
@@ -888,7 +927,6 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             }
         }
 
-
         // Header: Support
         Text(
             text = "Soporte",
@@ -902,11 +940,11 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
         // 8. Contact Us
         ContactButton(
             icon = Icons.Default.Email,
-            text = "Contactar con soporte",
+            text = stringResource(id = R.string.send_email),
             onClick = {
                 val intent = Intent(Intent.ACTION_SENDTO).apply {
                     data = Uri.parse("mailto:support@callofduty.com")
-                    putExtra(Intent.EXTRA_SUBJECT, "Consulta sobre Call of Duty")
+                    putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.email_subject)) // Usa context.getString()
                 }
                 context.startActivity(intent)
             }
@@ -933,6 +971,7 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
         )
     }
 }
+
 
 // Reusable Setting Row
 @Composable

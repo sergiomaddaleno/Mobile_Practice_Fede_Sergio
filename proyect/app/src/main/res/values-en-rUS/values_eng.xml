@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Practice_Fede_Sergio</string>
-    <string name="Registro">Registro de usuario</string>
-    <string name="Nombre">Name</string>
-    <string name="Hola">Hello!</string>
-    <string name="Ajustes">Settings</string>
-
+    <string name="app_name">T33_Mobile</string>
+    <string name="settings_title">Game Settings</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="language">Language English/Spanish</string>
+    <string name="contact">Contact</string>
+    <string name="send_email">Send email</string>
+    <string name="call_support">Call support</string>
+    <string name="visit_website">Visit official website</string>
+    <string name="email_subject">Call of Duty Inquiry</string>
+    <string name="Translate">Translate</string>
 </resources>
