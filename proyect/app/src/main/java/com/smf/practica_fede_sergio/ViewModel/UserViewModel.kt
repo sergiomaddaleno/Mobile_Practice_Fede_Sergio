@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.smf.practica_fede_sergio.DataSource.DataSource
+import com.smf.practica_fede_sergio.Screens.Player
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -13,7 +14,8 @@ data class UserUiState(
     val name: String = "",
     val email: String = "",
     val isDarkMode: Boolean = false,
-    val isEnglish: Boolean = false
+    val isEnglish: Boolean = false,
+    val players: List<Player> = emptyList()
 )
 
 open class UserViewModel(private val dataSource: DataSource) : ViewModel() {
@@ -38,9 +40,40 @@ open class UserViewModel(private val dataSource: DataSource) : ViewModel() {
                     _uiState.value = _uiState.value.copy(isEnglish = isEnglish)
                 }
             }
+
+            launch {
+                dataSource.getPlayersList.collect { players ->
+                    _uiState.update { it.copy(players = players) }
+                }
+            }
         }
     }
 
+    fun addPlayer(player: Player) {
+        viewModelScope.launch {
+            val updatedPlayers = _uiState.value.players + player
+            dataSource.savePlayersList(updatedPlayers)
+            _uiState.update { it.copy(players = updatedPlayers) }
+        }
+    }
+
+    fun updatePlayer(updatedPlayer: Player) {
+        viewModelScope.launch {
+            val updatedPlayers = _uiState.value.players.map {
+                if (it.name == updatedPlayer.name) updatedPlayer else it
+            }
+            dataSource.savePlayersList(updatedPlayers)
+            _uiState.update { it.copy(players = updatedPlayers) }
+        }
+    }
+
+    fun deletePlayer(player: Player) {
+        viewModelScope.launch {
+            val updatedPlayers = _uiState.value.players - player
+            dataSource.savePlayersList(updatedPlayers)
+            _uiState.update { it.copy(players = updatedPlayers) }
+        }
+    }
 
     // Método para actualizar el nombre
     fun updateName(newName: String) {

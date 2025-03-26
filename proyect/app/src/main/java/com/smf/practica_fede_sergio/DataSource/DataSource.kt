@@ -6,9 +6,12 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.smf.practica_fede_sergio.Screens.Player
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 class DataSource(
     private val dataStore: DataStore<Preferences>
@@ -19,6 +22,20 @@ class DataSource(
         val DARK_MODE = booleanPreferencesKey("dark_mode")
         val IS_ENGLISH = booleanPreferencesKey("is_english")
         const val LOGIN_PREFERENCES = "LoginPreferences"
+        val PLAYERS_LIST = stringPreferencesKey("players_list")
+    }
+
+    val getPlayersList: Flow<List<Player>> = dataStore.data
+        .map { preferences ->
+            val playersJson = preferences[PLAYERS_LIST] ?: "[]"
+            Json.decodeFromString<List<Player>>(playersJson)
+        }
+
+    suspend fun savePlayersList(players: List<Player>) {
+        dataStore.edit { preferences ->
+            val playersJson = Json.encodeToString(players)
+            preferences[PLAYERS_LIST] = playersJson
+        }
     }
 
 
