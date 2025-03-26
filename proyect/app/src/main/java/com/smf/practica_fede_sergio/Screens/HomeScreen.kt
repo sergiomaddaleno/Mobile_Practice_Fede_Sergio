@@ -57,6 +57,7 @@ import androidx.navigation.compose.rememberNavController
 import com.smf.practica_fede_sergio.R
 import com.smf.practica_fede_sergio.Retrofit.MarsPhotosScreen
 import com.smf.practica_fede_sergio.ViewModel.UserViewModel
+import kotlinx.serialization.Serializable
 import java.util.Locale
 
 private val LightThemeColors = lightColorScheme(
@@ -221,13 +222,8 @@ fun HomeScreen(loginViewModel: UserViewModel, navController: NavController) {
 @Composable
 fun PlayersScreen(loginViewModel: UserViewModel) {
     val uiState by loginViewModel.uiState.collectAsState()
-    val players = remember { mutableStateListOf<Player>() }
-
 
     var showDialog by remember { mutableStateOf(false) }
-
-    // Function to update the ViewModel
-
 
     Column(
         modifier = Modifier
@@ -245,35 +241,25 @@ fun PlayersScreen(loginViewModel: UserViewModel) {
             onClick = { showDialog = true },
             modifier = Modifier.align(Alignment.End)
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = "Añadir Personaje",
-                    tint = Color.Black
+                    tint = MaterialTheme.colorScheme.onPrimary
                 )
-                Text(
-                    text = "Añadir Jugador",
-                    color = Color.Black
-                )
+                Text(text = "Añadir Jugador", color = MaterialTheme.colorScheme.onPrimary)
             }
         }
 
         LazyColumn {
-            items(players) { player ->
+            items(uiState.players) { player ->
                 PlayerCard(
                     player = player,
                     onPlayerChange = { newName ->
-                        val index = players.indexOf(player)
-                        if (index != -1) {
-                            players[index] = player.copy(name = newName)
-
-                        }
+                        loginViewModel.updatePlayer(player.copy(name = newName))
                     },
                     onDelete = {
-                        players.remove(player)
-
+                        loginViewModel.deletePlayer(player)
                     }
                 )
             }
@@ -283,8 +269,7 @@ fun PlayersScreen(loginViewModel: UserViewModel) {
             AddPlayerDialog(
                 onDismissRequest = { showDialog = false },
                 onConfirm = { newPlayerName, imageRes ->
-                    players.add(Player(newPlayerName, imageRes))
-
+                    loginViewModel.addPlayer(Player(newPlayerName, imageRes))
                     showDialog = false
                 }
             )
@@ -292,6 +277,7 @@ fun PlayersScreen(loginViewModel: UserViewModel) {
     }
 }
 
+@Serializable
 data class Player(val name: String, val imageRes: Int)
 
 @OptIn(ExperimentalMaterial3Api::class)
