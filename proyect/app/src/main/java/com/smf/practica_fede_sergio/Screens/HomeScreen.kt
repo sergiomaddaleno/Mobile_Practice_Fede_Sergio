@@ -31,9 +31,7 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -43,8 +41,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -57,9 +57,6 @@ import androidx.navigation.compose.rememberNavController
 import com.smf.practica_fede_sergio.R
 import com.smf.practica_fede_sergio.Retrofit.MarsPhotosScreen
 import com.smf.practica_fede_sergio.ViewModel.UserViewModel
-import java.time.format.TextStyle
-import androidx.compose.ui.res.stringResource
-import android.content.res.Configuration
 import java.util.Locale
 
 private val LightThemeColors = lightColorScheme(
@@ -701,24 +698,24 @@ fun ProfileScreen(loginViewModel: UserViewModel) {
 
 
 object LocaleHelper {
-    fun setLocale(context: Context, languageCode: String): Context {
+    fun setLocale(context: Context, languageCode: String) {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)
 
-        val config = Configuration()
+        val resources = context.resources
+        val config = resources.configuration
         config.setLocale(locale)
-
-        return context.createConfigurationContext(config)
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(loginViewModel: UserViewModel) {
     val uiState by loginViewModel.uiState.collectAsState()
     var isDarkMode by remember { mutableStateOf(uiState.isDarkMode) }
-    var isEnglish by remember { mutableStateOf(uiState.isEnglish) }
+    var isEnglish by remember { mutableStateOf(uiState.isEnglish) } // Ensure recomposition on change
+    val configuration = LocalConfiguration.current
     val context = LocalContext.current
     val email = uiState.email
     var linkedAccountsExpanded by remember { mutableStateOf(false) }
@@ -730,10 +727,10 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
 
     fun toggleLanguage(isEnglish: Boolean) {
         val newLanguageCode = if (isEnglish) "en" else "es"
-        val updatedContext = LocaleHelper.setLocale(context, newLanguageCode)
         loginViewModel.saveLanguage(isEnglish)
+        LocaleHelper.setLocale(context, newLanguageCode)
 
-        // Restart the activity to apply changes
+        // Restart activity to apply changes
         (context as? Activity)?.recreate()
     }
 
@@ -813,19 +810,11 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
                     .padding(start = 40.dp, top = 8.dp, bottom = 16.dp),
                 horizontalAlignment = Alignment.Start
             ) {
-                if (email.isNotEmpty()) {
-                    Text(
-                        text = "Correo: $email",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                } else {
-                    Text(
-                        text = "Correo: No Correo",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                }
+                Text(
+                    text = "Correo: ${if (email.isNotEmpty()) email else "No Correo"}",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
             }
         }
 
@@ -849,7 +838,6 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
                     .padding(start = 40.dp, top = 8.dp, bottom = 16.dp),
                 horizontalAlignment = Alignment.Start
             ) {
-                // Slider Example
                 var sliderValue by remember { mutableStateOf(50f) }
 
                 Text(
@@ -865,7 +853,6 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                // Checkbox example
                 var vibrateOnTouch by remember { mutableStateOf(true) }
 
                 Row(
@@ -883,16 +870,13 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
                     )
                 }
 
-                // Dropdown Example
                 var selectedQuality by remember { mutableStateOf("Alta") }
                 val options = listOf("Baja", "Media", "Alta")
                 var expanded by remember { mutableStateOf(false) }
 
                 ExposedDropdownMenuBox(
                     expanded = expanded,
-                    onExpandedChange = {
-                        expanded = !expanded
-                    }
+                    onExpandedChange = { expanded = !expanded }
                 ) {
                     TextField(
                         readOnly = true,
@@ -900,18 +884,14 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
                         onValueChange = { },
                         label = { Text("Calidad de Gráficos") },
                         trailingIcon = {
-                            ExposedDropdownMenuDefaults.TrailingIcon(
-                                expanded = expanded
-                            )
+                            ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
                         },
                         colors = ExposedDropdownMenuDefaults.textFieldColors(),
                         modifier = Modifier.menuAnchor()
                     )
                     ExposedDropdownMenu(
                         expanded = expanded,
-                        onDismissRequest = {
-                            expanded = false
-                        }
+                        onDismissRequest = { expanded = false }
                     ) {
                         options.forEach { selectionOption ->
                             DropdownMenuItem(
@@ -944,7 +924,7 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             onClick = {
                 val intent = Intent(Intent.ACTION_SENDTO).apply {
                     data = Uri.parse("mailto:support@callofduty.com")
-                    putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.email_subject)) // Usa context.getString()
+                    putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.email_subject))
                 }
                 context.startActivity(intent)
             }
@@ -962,7 +942,7 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
 
         // 14. App Version
         Text(
-            text = "Version 1.0", // Replace with your actual version string
+            text = "Version 1.0",
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
             modifier = Modifier
@@ -971,7 +951,6 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
         )
     }
 }
-
 
 // Reusable Setting Row
 @Composable
