@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -65,7 +66,7 @@ fun RegisterScreen(
             )
 
             Text(
-                text = "INICIAR SESION",
+                text = stringResource(id = R.string.login),
                 color = Color.Yellow,
                 fontSize = 28.sp,
                 style = MaterialTheme.typography.headlineLarge,
@@ -84,7 +85,13 @@ fun RegisterScreen(
                         else -> ""
                     }
                 },
-                label = { Text("Email", color = Color.White) },
+                label = {
+                    Text(
+                        text = stringResource(id = R.string.email_subject),
+                        color = Color.White
+                    )
+                }
+                ,
                 isError = isError,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -109,7 +116,7 @@ fun RegisterScreen(
                     isError = it.text.isEmpty() || !isValidPassword(it.text)
                     passwordErrorMessage = if (it.text.isEmpty()) "La contraseña no puede estar vacía" else ""
                 },
-                label = { Text("Contraseña", color = Color.White) },
+                label = { Text(text = stringResource(id = R.string.password), color = Color.White) },
                 isError = passwordInput.text.isEmpty(),
                 visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier
@@ -144,7 +151,7 @@ fun RegisterScreen(
                     contentColor = if (isValidEmail(emailInput.text) && isValidPassword(passwordInput.text)) Color.Black else Color.White
                 )
             ) {
-                Text(text = "Entrar al campo de batalla")
+                Text(text = stringResource(id = R.string.enter))
             }
         }
     }

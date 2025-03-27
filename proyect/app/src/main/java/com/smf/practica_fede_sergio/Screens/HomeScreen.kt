@@ -231,7 +231,7 @@ fun PlayersScreen(loginViewModel: UserViewModel) {
             .padding(16.dp)
     ) {
         Text(
-            text = "Añadir personajes de Call of Duty",
+            text = stringResource(id = R.string.players_title),
             style = MaterialTheme.typography.headlineMedium,
             fontSize = 24.sp,
             modifier = Modifier.padding(bottom = 16.dp)
@@ -247,7 +247,7 @@ fun PlayersScreen(loginViewModel: UserViewModel) {
                     contentDescription = "Añadir Personaje",
                     tint = MaterialTheme.colorScheme.onPrimary
                 )
-                Text(text = "Añadir Jugador", color = MaterialTheme.colorScheme.onPrimary)
+                Text(text = stringResource(id = R.string.add_player), color = MaterialTheme.colorScheme.onPrimary)
             }
         }
 
@@ -377,19 +377,19 @@ fun AddPlayerDialog(
                 modifier = Modifier.padding(16.dp)
             ) {
                 Text(
-                    text = "Añadir Nuevo Jugador",
+                    text = stringResource(id = R.string.add_player),
                     style = MaterialTheme.typography.headlineSmall
                 )
 
                 TextField(
                     value = newPlayerName,
                     onValueChange = { newPlayerName = it },
-                    label = { Text("Nombre del Jugador") },
+                    label = { Text(stringResource(id = R.string.player_name_label)) },
                     modifier = Modifier.fillMaxWidth()
                 )
 
                 Text(
-                    text = "Seleccionar Imagen:",
+                    text = stringResource(id = R.string.select_image),
                     modifier = Modifier.padding(top = 8.dp)
                 )
 
@@ -419,8 +419,9 @@ fun AddPlayerDialog(
                     horizontalArrangement = Arrangement.End
                 ) {
                     TextButton(onClick = onDismissRequest) {
-                        Text("Cancelar")
+                        Text(text = stringResource(id = R.string.cancel))
                     }
+
                     TextButton(
                         onClick = {
                             if (newPlayerName.isNotEmpty()) {
@@ -429,7 +430,7 @@ fun AddPlayerDialog(
                         },
                         enabled = newPlayerName.isNotEmpty()
                     ) {
-                        Text("Añadir")
+                        Text(text = stringResource(id = R.string.add))
                     }
                 }
             }
@@ -508,9 +509,9 @@ fun HomeMainScreen(loginViewModel: UserViewModel) {
 
             Spacer(modifier = Modifier.height(15.dp))
 
-            StatsCard(title = "Partidas Jugadas", value = "150")
-            StatsCard(title = "Nivel de Jugador", value = "45")
-            StatsCard(title = "Puntos Totales", value = "12000")
+            StatsCard(title = stringResource(id = R.string.games_played), value = "150")
+            StatsCard(title = stringResource(id = R.string.level_progress), value = "45")
+            StatsCard(title = stringResource(id = R.string.total_points), value = "12000")
 
             Spacer(modifier = Modifier.height(32.dp))
 
@@ -519,28 +520,28 @@ fun HomeMainScreen(loginViewModel: UserViewModel) {
             Spacer(modifier = Modifier.height(32.dp))
 
             Text(
-                text = "Tus Logros",
+                text = stringResource(id = R.string.achievements_title),
 
                 fontSize = 22.sp
             )
-            LogroCard(title = "Completaste 100 partidas", icon = R.drawable.ic_check_circle)
-            LogroCard(title = "Alcanzaste el nivel 30", icon = R.drawable.ic_check_circle)
-            LogroCard(title = "Jugaste 3 días seguidos", icon = R.drawable.ic_check_circle)
+            LogroCard(title = stringResource(id = R.string.achievement_games), icon = R.drawable.ic_check_circle)
+            LogroCard(title = stringResource(id = R.string.achievement_level), icon = R.drawable.ic_check_circle)
+            LogroCard(title = stringResource(id = R.string.achievement_streak), icon = R.drawable.ic_check_circle)
 
             Spacer(modifier = Modifier.height(32.dp))
 
             Text(
-                text = "Consejos para mejorar",
+                text = stringResource(id = R.string.tips_title),
 
                 fontSize = 22.sp
             )
-            TipsCard(text = "Haz misiones diarias para mejorar tu nivel rápidamente.")
-            TipsCard(text = "Juega con amigos para obtener bonificaciones de equipo.")
+            TipsCard(text = stringResource(id = R.string.tip_daily_missions))
+            TipsCard(text = stringResource(id = R.string.tip_play_friends))
 
             Spacer(modifier = Modifier.height(32.dp))
 
             Text(
-                text = "¡Sigue jugando y mejora cada día!",
+                text = stringResource(id = R.string.keep_playing),
 
                 fontSize = 18.sp
             )
@@ -590,7 +591,7 @@ fun LevelProgressBar(currentLevel: Int, maxLevel: Int) {
             .padding(horizontal = 16.dp)
     ) {
         Text(
-            text = "Nivel: $currentLevel / $maxLevel",
+            text = "Level: $currentLevel / $maxLevel",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onBackground,
             fontSize = 16.sp
@@ -778,7 +779,7 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
 
         // 5. Linked Accounts
         SettingRow(
-            title = "Cuentas Enlazadas",
+            title = stringResource(id = R.string.cuentas),
             icon = Icons.Default.Person,
             onClick = {
                 linkedAccountsExpanded = !linkedAccountsExpanded
@@ -806,7 +807,7 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
 
         // Advanced Settings
         SettingRow(
-            title = "Ajustes Avanzados",
+            title = stringResource(id = R.string.ajustes),
             icon = Icons.Default.Settings,
             onClick = {
                 advancedSettingsExpanded = !advancedSettingsExpanded
@@ -895,7 +896,7 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
 
         // Header: Support
         Text(
-            text = "Soporte",
+            text = stringResource(id = R.string.soporte),
             style = MaterialTheme.typography.headlineMedium,
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold,

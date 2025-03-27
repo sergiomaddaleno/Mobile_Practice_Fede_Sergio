@@ -8,5 +8,37 @@
     <string name="dark_mode">Modo oscuro</string>
     <string name="language">Idioma Ingles/Español</string>
     <string name="Translate">Traducir</string>
-    <string name="send_email">enviar correo</string>
+    <string name="send_email">Send email</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="password">Contraseña</string>
+    <string name="enter">Entrar al campo de batalla</string>
+    <string name="bienvenido">Bienvenido de nuevo</string>
+    <string name="cuentas">Cuentas enlazadas</string>
+    <string name="ajustes">Ajustes avanzados</string>
+    <string name="soporte">Soporte</string>
+
+
+    <string name="games_played">Partidas Jugadas</string>
+    <string name="player_level">Nivel de Jugador</string>
+    <string name="total_points">Puntos Totales</string>
+    <string name="level_progress">Nivel</string>
+    <string name="achievements_title">Tus Logros</string>
+    <string name="achievement_games">Completaste 100 partidas</string>
+    <string name="achievement_level">Alcanzaste el nivel 30</string>
+    <string name="achievement_streak">Jugaste 3 días seguidos</string>
+    <string name="tips_title">Consejos para mejorar</string>
+    <string name="tip_daily_missions">Haz misiones diarias para mejorar tu nivel rápidamente.</string>
+    <string name="tip_play_friends">Juega con amigos para obtener bonificaciones de equipo.</string>
+    <string name="keep_playing">¡Sigue jugando y mejora cada día!</string>
+
+    <!-- Pantalla de jugadores -->
+    <string name="players_title">Añadir personajes de Call of Duty</string>
+    <string name="add_player">Añadir Jugador</string>
+    <string name="player_name_label">Nombre del Jugador</string>
+    <string name="select_image">Seleccionar Imagen:</string>
+    <string name="cancel">Cancelar</string>
+    <string name="add">Añadir</string>
+    <string name="edit_player">Editar Nombre</string>
+    <string name="save">Guardar</string>
+    <string name="delete_player">Eliminar Jugador</string>
 </resources>

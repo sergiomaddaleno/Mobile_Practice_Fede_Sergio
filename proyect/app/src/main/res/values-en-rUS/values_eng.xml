@@ -8,6 +8,38 @@
     <string name="send_email">Send email</string>
     <string name="call_support">Call support</string>
     <string name="visit_website">Visit official website</string>
-    <string name="email_subject">Call of Duty Inquiry</string>
+    <string name="email_subject">Email</string>
     <string name="Translate">Translate</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="enter">Enter the battlefield</string>
+    <string name="bienvenido">welcome back</string>
+    <string name="cuentas">Linked accounts</string>
+    <string name="ajustes">Advanced settings</string>
+    <string name="soporte">Support</string>
+
+    <string name="games_played">Games Played</string>
+    <string name="player_level">Player Level</string>
+    <string name="total_points">Total Points</string>
+    <string name="level_progress">Level</string>
+    <string name="achievements_title">Your Achievements</string>
+    <string name="achievement_games">You completed 100 games</string>
+    <string name="achievement_level">You reached level 30</string>
+    <string name="achievement_streak">You played for 3 consecutive days</string>
+    <string name="tips_title">Tips to improve</string>
+    <string name="tip_daily_missions">Complete daily missions to level up quickly.</string>
+    <string name="tip_play_friends">Play with friends to earn team bonuses.</string>
+    <string name="keep_playing">Keep playing and improve every day!</string>
+
+    <!-- Players Screen -->
+    <string name="players_title">Add Call of Duty characters</string>
+    <string name="add_player">Add Player</string>
+    <string name="player_name_label">Player Name</string>
+    <string name="select_image">Select Image:</string>
+    <string name="cancel">Cancel</string>
+    <string name="add">Add</string>
+    <string name="edit_player">Edit Name</string>
+    <string name="save">Save</string>
+    <string name="delete_player">Delete Player</string>
+
 </resources>
