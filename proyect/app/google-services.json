@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "602688045266",
+    "project_id": "equipo33-db098",
+    "storage_bucket": "equipo33-db098.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:602688045266:android:e7432e0e657717f713ad0b",
+        "android_client_info": {
+          "package_name": "com.smf.practica_fede_sergio"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDP45j6p4ehUSCixjN45iGDvbnfqv-7lRo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

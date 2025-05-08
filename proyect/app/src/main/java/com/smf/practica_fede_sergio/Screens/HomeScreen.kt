@@ -701,7 +701,7 @@ object LocaleHelper {
 fun SettingsScreen(loginViewModel: UserViewModel) {
     val uiState by loginViewModel.uiState.collectAsState()
     var isDarkMode by remember { mutableStateOf(uiState.isDarkMode) }
-    var isEnglish by remember { mutableStateOf(uiState.isEnglish) } // Ensure recomposition on change
+    var isEnglish by remember { mutableStateOf(uiState.isEnglish) }
     val configuration = LocalConfiguration.current
     val context = LocalContext.current
     val email = uiState.email
@@ -716,8 +716,6 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
         val newLanguageCode = if (isEnglish) "en" else "es"
         loginViewModel.saveLanguage(isEnglish)
         LocaleHelper.setLocale(context, newLanguageCode)
-
-        // Restart activity to apply changes
         (context as? Activity)?.recreate()
     }
 
@@ -727,7 +725,6 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        // Header: App Title
         Text(
             text = stringResource(id = R.string.settings_title),
             style = MaterialTheme.typography.headlineLarge,
@@ -737,7 +734,6 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             modifier = Modifier.padding(bottom = 24.dp)
         )
 
-        // 1. Dark Mode Setting
         SettingRow(
             title = stringResource(id = R.string.dark_mode),
             icon = Icons.Default.Build,
@@ -752,7 +748,6 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             }
         )
 
-        // 2. Language Setting
         SettingRow(
             title = stringResource(id = R.string.language),
             icon = Icons.Default.Build,
@@ -767,7 +762,6 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             }
         )
 
-        // Header: Account
         Text(
             text = stringResource(id = R.string.contact),
             style = MaterialTheme.typography.headlineMedium,
@@ -777,7 +771,6 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             modifier = Modifier.padding(top = 32.dp, bottom = 24.dp)
         )
 
-        // 5. Linked Accounts
         SettingRow(
             title = stringResource(id = R.string.cuentas),
             icon = Icons.Default.Person,
@@ -805,7 +798,6 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             }
         }
 
-        // Advanced Settings
         SettingRow(
             title = stringResource(id = R.string.ajustes),
             icon = Icons.Default.Settings,
@@ -894,7 +886,6 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             }
         }
 
-        // Header: Support
         Text(
             text = stringResource(id = R.string.soporte),
             style = MaterialTheme.typography.headlineMedium,
@@ -904,7 +895,6 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             modifier = Modifier.padding(top = 32.dp, bottom = 24.dp)
         )
 
-        // 8. Contact Us
         ContactButton(
             icon = Icons.Default.Email,
             text = stringResource(id = R.string.send_email),
@@ -917,7 +907,18 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             }
         )
 
-        // Legal Section
+        // Botón de prueba de crash
+        Button(
+            onClick = {
+                throw RuntimeException("Test Crash") // Forzar crash
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 32.dp)
+        ) {
+            Text("Test Crash")
+        }
+
         Text(
             text = "Legal",
             style = MaterialTheme.typography.headlineMedium,
@@ -927,7 +928,6 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             modifier = Modifier.padding(top = 32.dp, bottom = 24.dp)
         )
 
-        // 14. App Version
         Text(
             text = "Version 1.0",
             style = MaterialTheme.typography.bodySmall,
