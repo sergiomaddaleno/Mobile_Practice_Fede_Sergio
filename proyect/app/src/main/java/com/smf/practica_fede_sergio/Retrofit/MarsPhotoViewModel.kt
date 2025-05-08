@@ -18,7 +18,7 @@ class MarsPhotoViewModel : ViewModel() {
                 val response = MarsApi.marsApiService.getPhotos()
 
                 if (response.isSuccessful) {
-                    val marsPhotos = response.body() ?: emptyList()
+                    val marsPhotos = response.body()?.results ?: emptyList()
                     _uiState.value = MarsPhotosUiState.Success(marsPhotos)
                 } else {
                     val errorMessage = "Error ${response.code()}: ${response.message()}"
@@ -30,4 +30,5 @@ class MarsPhotoViewModel : ViewModel() {
             }
         }
     }
+
 }

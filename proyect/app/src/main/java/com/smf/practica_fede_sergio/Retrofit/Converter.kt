@@ -5,12 +5,15 @@ import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 
-private const val MARS_API_URL =
-    "https://android-kotlin-fun-mars-server.appspot.com"
+private val json = Json {
+    ignoreUnknownKeys = true
+}
+
+private const val BASE_URL = "https://rickandmortyapi.com/api/"
 
 val retrofitApi = Retrofit.Builder()
-    .baseUrl(MARS_API_URL)
+    .baseUrl(BASE_URL)
     .addConverterFactory(
-        Json.asConverterFactory("application/json; charset=UTF-8".toMediaType())
+        json.asConverterFactory("application/json; charset=UTF-8".toMediaType())
     )
     .build()
