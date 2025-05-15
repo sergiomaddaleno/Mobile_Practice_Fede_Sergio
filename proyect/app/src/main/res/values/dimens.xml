@@ -3,5 +3,7 @@
 
     <dimen name="padding_16dp">16dp</dimen>
     <dimen name="padding_8dp">8dp</dimen>
+    <dimen name="padding_32dp">32dp</dimen>
 
+    <dimen name="font_size_15sp">15sp</dimen>
 </resources>

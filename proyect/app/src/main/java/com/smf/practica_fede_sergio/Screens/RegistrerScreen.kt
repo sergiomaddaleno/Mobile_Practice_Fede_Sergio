@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -88,7 +89,7 @@ fun RegisterScreen(
                 label = {
                     Text(
                         text = stringResource(id = R.string.email_subject),
-                        color = Color.White
+                        color = Color.Black
                     )
                 }
                 ,
@@ -103,7 +104,7 @@ fun RegisterScreen(
                 Text(
                     text = emailErrorMessage,
                     color = Color.Red,
-                    fontSize = 12.sp,
+                    fontSize = dimensionResource(id = R.dimen.font_size_15sp).value.sp,
                     modifier = Modifier.padding(top = 4.dp)
                 )
             }
@@ -116,7 +117,7 @@ fun RegisterScreen(
                     isError = it.text.isEmpty() || !isValidPassword(it.text)
                     passwordErrorMessage = if (it.text.isEmpty()) "La contraseña no puede estar vacía" else ""
                 },
-                label = { Text(text = stringResource(id = R.string.password), color = Color.White) },
+                label = { Text(text = stringResource(id = R.string.password), color = Color.Black) },
                 isError = passwordInput.text.isEmpty(),
                 visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier
