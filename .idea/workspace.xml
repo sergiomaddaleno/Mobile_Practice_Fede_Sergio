@@ -10,12 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb922022-b655-4197-b52d-663dc689b815" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/proyect/app/src/main/res/values-es-rES/values_esp.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyect/app/src/main/java/com/smf/practica_fede_sergio/Screens/HomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/proyect/app/src/main/java/com/smf/practica_fede_sergio/Screens/HomeScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyect/app/src/main/res/values-en-rUS/values_eng.xml" beforeDir="false" afterPath="$PROJECT_DIR$/proyect/app/src/main/res/values-en-rUS/values_eng.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyect/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/proyect/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proyect/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/proyect/app/build.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
