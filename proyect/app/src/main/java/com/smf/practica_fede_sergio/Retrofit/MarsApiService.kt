@@ -4,6 +4,6 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 interface MarsApiService {
-    @GET("photos")
-    suspend fun getPhotos() : Response<List<MarsPhotos>>
+    @GET("character")
+    suspend fun getPhotos(): Response<RickAndMortyResponse>
 }

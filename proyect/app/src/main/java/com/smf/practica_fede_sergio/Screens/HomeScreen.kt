@@ -43,6 +43,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -128,7 +129,7 @@ fun HomeScreen(loginViewModel: UserViewModel, navController: NavController) {
                                 Icon(
                                     imageVector = Icons.Filled.ExitToApp,
                                     contentDescription = "Logout",
-                                    tint = Color.Red
+                                    tint = Color.White
 
                                 )
                             }
@@ -139,7 +140,7 @@ fun HomeScreen(loginViewModel: UserViewModel, navController: NavController) {
                     BottomAppBar(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(bottom = 4.dp),
+                            .padding(bottom = dimensionResource(id = R.dimen.padding_4dp)),
                     ) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -228,13 +229,13 @@ fun PlayersScreen(loginViewModel: UserViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
-    ) {
+            .padding(bottom = dimensionResource(id = R.dimen.padding_16dp)),
+        ) {
         Text(
             text = stringResource(id = R.string.players_title),
             style = MaterialTheme.typography.headlineMedium,
             fontSize = 24.sp,
-            modifier = Modifier.padding(bottom = 16.dp)
+            modifier = Modifier.padding(bottom = dimensionResource(id = R.dimen.padding_16dp))
         )
 
         Button(
@@ -290,9 +291,9 @@ fun PlayerCard(player: Player, onPlayerChange: (String) -> Unit, onDelete: () ->
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)
+            .padding(bottom = dimensionResource(id = R.dimen.padding_8dp))
             .clickable { expanded = !expanded },
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        elevation = CardDefaults.cardElevation(dimensionResource(id = R.dimen.padding_4dp))
     ) {
         Column {
             if (isEditing) {
@@ -300,13 +301,13 @@ fun PlayerCard(player: Player, onPlayerChange: (String) -> Unit, onDelete: () ->
                     value = playerName,
                     onValueChange = { playerName = it },
                     label = { Text("Nombre del Jugador") },
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.padding(bottom = dimensionResource(id = R.dimen.padding_16dp))
                 )
 
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                        .padding(dimensionResource(id = R.dimen.padding_16dp), dimensionResource(id = R.dimen.padding_8dp)),
                     horizontalArrangement = Arrangement.End
                 ) {
                     Button(onClick = {
@@ -315,7 +316,7 @@ fun PlayerCard(player: Player, onPlayerChange: (String) -> Unit, onDelete: () ->
                     }) {
                         Text("Guardar")
                     }
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.padding_8dp)))
                     Button(onClick = { isEditing = false }) {
                         Text("Cancelar")
                     }
@@ -328,7 +329,7 @@ fun PlayerCard(player: Player, onPlayerChange: (String) -> Unit, onDelete: () ->
                 ) {
                     Text(
                         text = player.name,
-                        modifier = Modifier.padding(16.dp),
+                        modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_16dp)),
                         style = MaterialTheme.typography.bodyLarge
                     )
                     Row {
@@ -347,9 +348,9 @@ fun PlayerCard(player: Player, onPlayerChange: (String) -> Unit, onDelete: () ->
                     contentDescription = "Imagen de ${player.name}",
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(200.dp)
-                        .padding(8.dp)
-                        .clip(RoundedCornerShape(8.dp)),
+                        .height(dimensionResource(id = R.dimen.padding_200dp))
+                        .padding(dimensionResource(id = R.dimen.padding_8dp))
+                        .clip(RoundedCornerShape(dimensionResource(id = R.dimen.padding_8dp))),
                     contentScale = ContentScale.Crop
                 )
             }
@@ -371,10 +372,10 @@ fun AddPlayerDialog(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(dimensionResource(id = R.dimen.padding_16dp))
         ) {
             Column(
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_16dp))
             ) {
                 Text(
                     text = stringResource(id = R.string.add_player),
@@ -390,15 +391,15 @@ fun AddPlayerDialog(
 
                 Text(
                     text = stringResource(id = R.string.select_image),
-                    modifier = Modifier.padding(top = 8.dp)
+                    modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_8dp))
                 )
 
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .horizontalScroll(rememberScrollState())
-                        .padding(vertical = 8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        .padding(dimensionResource(id = R.dimen.padding_8dp)),
+                    horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_8dp))
                 ) {
                     ImageChoice(imageRes = R.drawable.ghost, selected = selectedImage == R.drawable.ghost) {
                         selectedImage = R.drawable.ghost
@@ -444,10 +445,10 @@ fun ImageChoice(imageRes: Int, selected: Boolean, onClick: () -> Unit) {
         painter = painterResource(id = imageRes),
         contentDescription = "Character",
         modifier = Modifier
-            .size(72.dp)
+            .size(dimensionResource(id = R.dimen.padding_72dp))
             .clip(CircleShape)
             .border(
-                width = 2.dp,
+                width = dimensionResource(id = R.dimen.padding_2dp),
                 color = if (selected) MaterialTheme.colorScheme.primary else Color.Transparent,
                 shape = CircleShape
             )
@@ -470,9 +471,9 @@ fun BottomAppBarButton(
     IconButton(
         onClick = onClick,
         modifier = Modifier
-            .clip(RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(dimensionResource(id = R.dimen.padding_16dp)))
             .background(backgroundColor)
-            .padding(12.dp)
+            .padding(dimensionResource(id = R.dimen.padding_12dp))
             .indication(interactionSource = remember { MutableInteractionSource() }, indication = LocalIndication.current)
     ) {
         Icon(
@@ -492,7 +493,7 @@ fun HomeMainScreen(loginViewModel: UserViewModel) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(dimensionResource(id = R.dimen.padding_16dp)),
         contentAlignment = Alignment.TopCenter
     ) {
         Column(
@@ -503,21 +504,21 @@ fun HomeMainScreen(loginViewModel: UserViewModel) {
             Image(
                 painter = painterResource(id = R.drawable.bo3),
                 contentDescription = "Logo de la app",
-                modifier = Modifier.size(200.dp)
+                modifier = Modifier.size(dimensionResource(id = R.dimen.padding_200dp))
             )
 
 
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_16dp)))
 
             StatsCard(title = stringResource(id = R.string.games_played), value = "150")
             StatsCard(title = stringResource(id = R.string.level_progress), value = "45")
             StatsCard(title = stringResource(id = R.string.total_points), value = "12000")
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_32dp)))
 
             LevelProgressBar(currentLevel = 45, maxLevel = 100)
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_32dp)))
 
             Text(
                 text = stringResource(id = R.string.achievements_title),
@@ -528,7 +529,7 @@ fun HomeMainScreen(loginViewModel: UserViewModel) {
             LogroCard(title = stringResource(id = R.string.achievement_level), icon = R.drawable.ic_check_circle)
             LogroCard(title = stringResource(id = R.string.achievement_streak), icon = R.drawable.ic_check_circle)
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_32dp)))
 
             Text(
                 text = stringResource(id = R.string.tips_title),
@@ -538,7 +539,7 @@ fun HomeMainScreen(loginViewModel: UserViewModel) {
             TipsCard(text = stringResource(id = R.string.tip_daily_missions))
             TipsCard(text = stringResource(id = R.string.tip_play_friends))
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_32dp)))
 
             Text(
                 text = stringResource(id = R.string.keep_playing),
@@ -554,15 +555,15 @@ fun StatsCard(title: String, value: String) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        shape = RoundedCornerShape(12.dp),
+            .padding(dimensionResource(id = R.dimen.padding_8dp)),
+        shape = RoundedCornerShape(dimensionResource(id = R.dimen.padding_12dp)),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant), // Usar color del tema
-        elevation = CardDefaults.cardElevation(4.dp)
+        elevation = CardDefaults.cardElevation(dimensionResource(id = R.dimen.padding_4dp))
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(dimensionResource(id = R.dimen.padding_16dp)),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -588,7 +589,7 @@ fun LevelProgressBar(currentLevel: Int, maxLevel: Int) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
+            .padding(dimensionResource(id = R.dimen.padding_16dp))
     ) {
         Text(
             text = "Level: $currentLevel / $maxLevel",
@@ -600,7 +601,7 @@ fun LevelProgressBar(currentLevel: Int, maxLevel: Int) {
             progress = currentLevel / maxLevel.toFloat(),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 8.dp),
+                .padding(dimensionResource(id = R.dimen.padding_8dp)),
             color = MaterialTheme.colorScheme.primary,
             trackColor = MaterialTheme.colorScheme.surfaceVariant
         )
@@ -613,15 +614,15 @@ fun LogroCard(title: String, icon: Int) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        shape = RoundedCornerShape(12.dp),
+            .padding(dimensionResource(id = R.dimen.padding_8dp)),
+        shape = RoundedCornerShape(dimensionResource(id = R.dimen.padding_12dp)),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-        elevation = CardDefaults.cardElevation(4.dp)
+        elevation = CardDefaults.cardElevation(dimensionResource(id = R.dimen.padding_4dp))
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(dimensionResource(id = R.dimen.padding_16dp)),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -629,9 +630,9 @@ fun LogroCard(title: String, icon: Int) {
                 painter = painterResource(id = icon),
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(dimensionResource(id = R.dimen.padding_24dp))
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.padding_8dp)))
             Text(
                 text = title,
                 style = MaterialTheme.typography.bodyMedium,
@@ -648,15 +649,15 @@ fun TipsCard(text: String) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        shape = RoundedCornerShape(12.dp),
+            .padding(dimensionResource(id = R.dimen.padding_8dp)),
+        shape = RoundedCornerShape(dimensionResource(id = R.dimen.padding_12dp)),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-        elevation = CardDefaults.cardElevation(4.dp)
+        elevation = CardDefaults.cardElevation(dimensionResource(id = R.dimen.padding_4dp))
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(dimensionResource(id = R.dimen.padding_16dp)),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -676,7 +677,7 @@ fun ProfileScreen(loginViewModel: UserViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(dimensionResource(id = R.dimen.padding_16dp))
     ) {
         MarsPhotosScreen()
     }
@@ -701,7 +702,7 @@ object LocaleHelper {
 fun SettingsScreen(loginViewModel: UserViewModel) {
     val uiState by loginViewModel.uiState.collectAsState()
     var isDarkMode by remember { mutableStateOf(uiState.isDarkMode) }
-    var isEnglish by remember { mutableStateOf(uiState.isEnglish) } // Ensure recomposition on change
+    var isEnglish by remember { mutableStateOf(uiState.isEnglish) }
     val configuration = LocalConfiguration.current
     val context = LocalContext.current
     val email = uiState.email
@@ -716,28 +717,24 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
         val newLanguageCode = if (isEnglish) "en" else "es"
         loginViewModel.saveLanguage(isEnglish)
         LocaleHelper.setLocale(context, newLanguageCode)
-
-        // Restart activity to apply changes
         (context as? Activity)?.recreate()
     }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(dimensionResource(id = R.dimen.padding_16dp))
             .verticalScroll(rememberScrollState())
     ) {
-        // Header: App Title
         Text(
             text = stringResource(id = R.string.settings_title),
             style = MaterialTheme.typography.headlineLarge,
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
             color = if (isDarkMode) Color.Yellow else Color.Black,
-            modifier = Modifier.padding(bottom = 24.dp)
+            modifier = Modifier.padding(bottom = dimensionResource(id = R.dimen.padding_24dp))
         )
 
-        // 1. Dark Mode Setting
         SettingRow(
             title = stringResource(id = R.string.dark_mode),
             icon = Icons.Default.Build,
@@ -752,7 +749,6 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             }
         )
 
-        // 2. Language Setting
         SettingRow(
             title = stringResource(id = R.string.language),
             icon = Icons.Default.Build,
@@ -767,17 +763,15 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             }
         )
 
-        // Header: Account
         Text(
             text = stringResource(id = R.string.contact),
             style = MaterialTheme.typography.headlineMedium,
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
             color = if (isDarkMode) Color.Yellow else Color.Black,
-            modifier = Modifier.padding(top = 32.dp, bottom = 24.dp)
+            modifier = Modifier.padding(top = dimensionResource(id = R.dimen.padding_32dp), bottom = dimensionResource(id = R.dimen.padding_24dp))
         )
 
-        // 5. Linked Accounts
         SettingRow(
             title = stringResource(id = R.string.cuentas),
             icon = Icons.Default.Person,
@@ -794,7 +788,7 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 40.dp, top = 8.dp, bottom = 16.dp),
+                    .padding(start = 40.dp, top = dimensionResource(id = R.dimen.padding_8dp), bottom = dimensionResource(id = R.dimen.padding_16dp)),
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
@@ -805,7 +799,6 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             }
         }
 
-        // Advanced Settings
         SettingRow(
             title = stringResource(id = R.string.ajustes),
             icon = Icons.Default.Settings,
@@ -822,7 +815,7 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 40.dp, top = 8.dp, bottom = 16.dp),
+                    .padding(start = 40.dp, top = dimensionResource(id = R.dimen.padding_8dp), bottom = dimensionResource(id = R.dimen.padding_16dp)),
                 horizontalAlignment = Alignment.Start
             ) {
                 var sliderValue by remember { mutableStateOf(50f) }
@@ -844,7 +837,7 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_8dp))
                 ) {
                     Text(
                         text = "Vibrar al tocar",
@@ -894,17 +887,15 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             }
         }
 
-        // Header: Support
         Text(
             text = stringResource(id = R.string.soporte),
             style = MaterialTheme.typography.headlineMedium,
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
             color = if (isDarkMode) Color.Yellow else Color.Black,
-            modifier = Modifier.padding(top = 32.dp, bottom = 24.dp)
+            modifier = Modifier.padding(top = dimensionResource(id = R.dimen.padding_32dp), bottom = dimensionResource(id = R.dimen.padding_24dp))
         )
 
-        // 8. Contact Us
         ContactButton(
             icon = Icons.Default.Email,
             text = stringResource(id = R.string.send_email),
@@ -917,23 +908,33 @@ fun SettingsScreen(loginViewModel: UserViewModel) {
             }
         )
 
-        // Legal Section
+        // Botón de prueba de crash
+        Button(
+            onClick = {
+                throw RuntimeException("Test Crash") // Forzar crash
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = dimensionResource(id = R.dimen.padding_32dp))
+        ) {
+            Text("Test Crash")
+        }
+
         Text(
             text = "Legal",
             style = MaterialTheme.typography.headlineMedium,
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
             color = if (isDarkMode) Color.Yellow else Color.Black,
-            modifier = Modifier.padding(top = 32.dp, bottom = 24.dp)
+            modifier = Modifier.padding(top = dimensionResource(id = R.dimen.padding_32dp), bottom = dimensionResource(id = R.dimen.padding_24dp))
         )
 
-        // 14. App Version
         Text(
             text = "Version 1.0",
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
             modifier = Modifier
-                .padding(top = 32.dp)
+                .padding(top = dimensionResource(id = R.dimen.padding_32dp))
                 .align(Alignment.CenterHorizontally)
         )
     }
@@ -957,19 +958,19 @@ fun SettingRow(
                     Modifier
                 }
             )
-            .padding(vertical = 12.dp),
+            .padding(vertical = dimensionResource(id = R.dimen.padding_12dp)),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_16dp))
         ) {
             Icon(
                 imageVector = icon,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(dimensionResource(id = R.dimen.padding_24dp))
             )
             Text(
                 text = title,
@@ -1001,12 +1002,12 @@ fun ContactButton(icon: ImageVector, text: String, onClick: () -> Unit) {
         onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)
+            .padding(vertical = dimensionResource(id = R.dimen.padding_8dp))
     ) {
         Icon(
             imageVector = icon,
             contentDescription = null,
-            modifier = Modifier.padding(end = 8.dp)
+            modifier = Modifier.padding(end = dimensionResource(id = R.dimen.padding_8dp))
         )
         Text(text = text)
     }

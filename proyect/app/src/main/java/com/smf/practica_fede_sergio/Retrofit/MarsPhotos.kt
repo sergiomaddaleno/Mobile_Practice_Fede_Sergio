@@ -4,7 +4,12 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MarsPhotos (
-    val id: String,
-    @SerialName(value = "img_src") val imgSrc: String?,
+data class MarsPhotos(
+    val id: Int,
+    @SerialName("image") val imgSrc: String?
+)
+
+@Serializable
+data class RickAndMortyResponse(
+    val results: List<MarsPhotos>
 )
